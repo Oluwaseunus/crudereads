@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import Book from './Book';
@@ -7,14 +7,19 @@ import { search } from '../BooksAPI';
 
 const Search = ({ handleBookUpdate }) => {
 	const [inputValue, setInputValue] = useState('');
-	const [books, setBooks] = useState([]);
 
-	const handleChange = async e => {
-		if (e.target.value) {
-			setInputValue(e.target.value);
-			setBooks(await search(inputValue));
-		}
-	};
+	const handleChange = e => setInputValue(e.target.value);
+
+	const [books, setBooks] = useState([]);
+	useEffect(() => {
+		(async () => {
+			if (!inputValue) setBooks([]);
+			else {
+				const newBooks = await search(inputValue);
+				setBooks(newBooks);
+			}
+		})();
+	}, [inputValue]);
 
 	return (
 		<div className='search-books'>
@@ -22,6 +27,7 @@ const Search = ({ handleBookUpdate }) => {
 				<Link to='/' className='close-search'>
 					Close
 				</Link>
+
 				<div className='search-books-input-wrapper'>
 					<input
 						type='text'
@@ -31,9 +37,10 @@ const Search = ({ handleBookUpdate }) => {
 					/>
 				</div>
 			</div>
+
 			<div className='search-books-results'>
 				<ol className='books-grid'>
-					{books &&
+					{books.length > 0 &&
 						books.map(book => (
 							<Book
 								id={book.id}
