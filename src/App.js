@@ -14,7 +14,7 @@ const App = () => {
 		(async () => {
 			setBooks(await getAll());
 		})();
-	}, []);
+	}, [books]);
 
 	const handleBookUpdate = (book, value) => {
 		if (book.shelf !== value) {
@@ -22,7 +22,6 @@ const App = () => {
 				books.filter(entry => entry.id === book.id)[0]
 			);
 			books.splice(index, 1);
-			book.shelf = value;
 			update(book, value);
 			setBooks([...books, book]);
 		}
@@ -37,6 +36,7 @@ const App = () => {
 					<Home {...props} books={books} handleBookUpdate={handleBookUpdate} />
 				)}
 			/>
+
 			<Route
 				path='/search'
 				render={props => (

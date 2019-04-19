@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+
 import Book from './Book';
 
 const Home = ({ books, handleBookUpdate }) => {
@@ -49,6 +50,7 @@ const Home = ({ books, handleBookUpdate }) => {
 					</div>
 				</div>
 			)}
+
 			<div>
 				<Link className='open-search' to='/search'>
 					<button>Add a book</button>

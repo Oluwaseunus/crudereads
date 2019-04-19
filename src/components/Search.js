@@ -10,8 +10,10 @@ const Search = ({ handleBookUpdate }) => {
 	const [books, setBooks] = useState([]);
 
 	const handleChange = async e => {
-		setInputValue(e.target.value);
-		setBooks(await search(inputValue));
+		if (e.target.value) {
+			setInputValue(e.target.value);
+			setBooks(await search(inputValue));
+		}
 	};
 
 	return (
