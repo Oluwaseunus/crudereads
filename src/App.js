@@ -17,14 +17,7 @@ const App = () => {
 	}, [books]);
 
 	const handleBookUpdate = (book, value) => {
-		if (book.shelf !== value) {
-			const index = books.indexOf(
-				books.filter(entry => entry.id === book.id)[0]
-			);
-			books.splice(index, 1);
-			update(book, value);
-			setBooks([...books, book]);
-		}
+		if (book.shelf !== value) update(book, value);
 	};
 
 	return (

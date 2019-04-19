@@ -8,7 +8,7 @@ const Book = ({ id, handleBookUpdate }) => {
 		(async () => {
 			setBook(await get(id));
 		})();
-	}, []);
+	}, [book]);
 
 	return (
 		<li>
