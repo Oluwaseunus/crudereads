@@ -14,10 +14,18 @@ const App = () => {
 		(async () => {
 			setBooks(await getAll());
 		})();
-	}, [books]);
+	}, []);
 
 	const handleBookUpdate = (book, value) => {
-		if (book.shelf !== value) update(book, value);
+		if (book.shelf !== value) {
+			update(book, value);
+			const index = books.indexOf(
+				books.filter(entry => entry.id === book.id)[0]
+			);
+			const newBooks = [...books];
+			newBooks.splice(index, 1);
+			setBooks([...newBooks, { ...book, shelf: value }]);
+		}
 	};
 
 	return (
@@ -25,16 +33,14 @@ const App = () => {
 			<Route
 				exact
 				path='/'
-				render={props => (
-					<Home {...props} books={books} handleBookUpdate={handleBookUpdate} />
+				render={() => (
+					<Home books={books} handleBookUpdate={handleBookUpdate} />
 				)}
 			/>
 
 			<Route
 				path='/search'
-				render={props => (
-					<Search {...props} handleBookUpdate={handleBookUpdate} />
-				)}
+				render={() => <Search handleBookUpdate={handleBookUpdate} />}
 			/>
 		</BrowserRouter>
 	);
