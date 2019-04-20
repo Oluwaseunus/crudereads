@@ -6,7 +6,7 @@ import Book from './Book';
 const Home = ({ books, handleBookUpdate }) => {
 	const shelves = ['currentlyReading', 'wantToRead', 'read'];
 
-	const Pascalify = string => {
+	const pascalCase = string => {
 		const first = [...string]
 			.map(value =>
 				value.charCodeAt(0) >= 65 && value.charCodeAt(0) <= 90
@@ -29,7 +29,7 @@ const Home = ({ books, handleBookUpdate }) => {
 						<div>
 							{shelves.map(shelf => (
 								<div className='bookshelf' key={shelf}>
-									<h2 className='bookshelf-title'>{Pascalify(shelf)}</h2>
+									<h2 className='bookshelf-title'>{pascalCase(shelf)}</h2>
 
 									<div className='bookshelf-books'>
 										<ol className='books-grid'>

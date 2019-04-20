@@ -13,11 +13,7 @@ const Search = ({ handleBookUpdate }) => {
 	const [books, setBooks] = useState([]);
 	useEffect(() => {
 		(async () => {
-			if (!inputValue) setBooks([]);
-			else {
-				const newBooks = await search(inputValue);
-				setBooks(newBooks);
-			}
+			setBooks(inputValue ? await search(inputValue) : []);
 		})();
 	}, [inputValue]);
 
